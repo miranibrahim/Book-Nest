@@ -1,38 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Listing</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
+  </head>
+  <body class="bg-gray-100">
     <header class="bg-gray-800 text-white p-4">
-        <nav class="flex justify-between">
-            <ul class="flex space-x-4">
-                <li><a href="/" class="hover:underline">Home</a></li>
-                <li><a href="/wishlist.html" class="hover:underline">Wishlist</a></li>
-            </ul>
-        </nav>
+      <nav class="flex justify-between">
+        <ul class="flex space-x-4">
+          <li><a href="/" class="hover:underline">Home</a></li>
+          <li><a href="/wishlist.html" class="hover:underline">Wishlist</a></li>
+        </ul>
+      </nav>
     </header>
-    
     <main class="p-6">
-        <section id="search-section" class="flex flex-col md:flex-row justify-between mb-6">
-            <input type="text" id="search-bar" placeholder="Search by title..." class="w-full md:w-2/3 p-2 border rounded">
-            <select id="genre-filter" class="w-full md:w-1/3 p-2 border rounded mt-2 md:mt-0">
-                <option value="">Filter by Genre</option>
-            </select>
+      <div class="h-[80vh]">
+        <section
+          id="search-section"
+          class="flex flex-col md:flex-row justify-between mb-6"
+        >
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search by title..."
+            class="w-full md:w-2/3 p-2 border rounded"
+          />
+          <select
+            id="genre-filter"
+            class="w-full md:w-1/3 p-2 border rounded mt-2 md:mt-0"
+          >
+            <option value="">Filter by Genre</option>
+          </select>
         </section>
 
-        <section id="books-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Books will be displayed here -->
+        <section
+          id="books-list"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
+        >
+          <!-- Books will be displayed here -->
         </section>
-
-        <div id="pagination" class="flex justify-center mt-6">
-            <!-- Pagination buttons will go here -->
-        </div>
+      </div>
+      <div id="pagination" class="flex justify-center mt-20">
+        <!-- Pagination buttons will go here -->
+      </div>
     </main>
 
     <script src="/script.js"></script>
-</body>
+  </body>
 </html>
