@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wishlist</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/wishlist.html">Wishlist</a></li>
+<body class="bg-gray-100">
+    <header class="bg-gray-800 text-white p-4">
+        <nav class="flex justify-between">
+            <ul class="flex space-x-4">
+                <li><a href="/" class="hover:underline">Home</a></li>
+                <li><a href="/wishlist.html" class="hover:underline">Wishlist</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <h1>Your Wishlist</h1>
-        <section id="wishlist-books">
+    <main class="p-6">
+        <h1 class="text-2xl font-bold mb-4">Your Wishlist</h1>
+        <section id="wishlist-books" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             <!-- Wishlisted books will be displayed here -->
         </section>
     </main>
