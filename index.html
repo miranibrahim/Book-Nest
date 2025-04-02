@@ -7,16 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100">
-    <header class="bg-gray-800 text-white p-4">
+    <header class="bg-gray-800 text-white p-4 w-full">
       <nav class="flex justify-between">
         <ul class="flex space-x-4">
           <li><a href="/" class="hover:underline">Home</a></li>
-          <li><a href="/wishlist.html" class="hover:underline">Wishlist</a></li>
+          <li><a href="wishlist.html" class="hover:underline">Wishlist</a></li>
         </ul>
       </nav>
     </header>
     <main class="p-6">
-      <div class="h-[80vh]">
+      <div class="h-[110vh]">
         <section
           id="search-section"
           class="flex flex-col md:flex-row justify-between mb-6"
@@ -42,11 +42,16 @@
           <!-- Books List will be displayed here -->
         </section>
       </div>
-      <div id="pagination" class="flex justify-center mt-32">
-        <!-- Pagination buttons will be displayed here -->
-      </div>
     </main>
-
-    <script src="/script.js"></script>
+    <div id="pagination" class="flex justify-center">
+      <!-- Pagination buttons will be displayed here -->
+    </div>
+    <!-- Import JS files in the correct order -->
+    <script src="js/api.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/bookRenderer.js"></script>
+    <script src="js/pagination.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
