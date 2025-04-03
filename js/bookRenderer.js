@@ -23,10 +23,11 @@ class BookRenderer {
     const bookDetailsDiv = document.createElement("div");
     bookDetailsDiv.classList.add("w-full", "cursor-pointer");
 
-    // Add event listener to bookDetailsDiv
-    if (onCardClick) {
-      bookDetailsDiv.addEventListener("click", () => onCardClick(book.id));
-    }
+    // Navigate to book-details.html?id=<book_id>
+    bookDetailsDiv.addEventListener("click", () => {
+      localStorage.setItem("selectedBook", book.id);
+      window.location.href = `book-details.html?id=${book.id}`;
+    });
 
     bookDetailsDiv.innerHTML = `
       <h3 class="mt-2 font-bold">ID: ${book.id}</h3>

@@ -3,9 +3,11 @@ class BookDetailsManager {
    * Initialize book details page
    */
   async init() {
-    const id = localStorage.getItem("selectedBook");
+    const localId = localStorage.getItem("selectedBook");
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
 
-    if (!id) {
+    if (!id && id != localId) {
       document.body.innerHTML =
         "<h2 class='text-center text-red-500'>No book details found.</h2>";
       return;
