@@ -65,5 +65,4 @@ class PaginationManager {
   }
 }
 
-// Create a singleton instance
 const paginationManager = new PaginationManager();

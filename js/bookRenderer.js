@@ -6,7 +6,7 @@ class BookRenderer {
    * @param {Function} onWishlistToggle - Callback for wishlist toggle
    * @returns {HTMLElement} The created book card element
    */
-  createBookCard(book, onCardClick, onWishlistToggle) {
+  createBookCard(book, onWishlistToggle) {
     const bookCard = document.createElement("div");
     bookCard.classList.add(
       "bg-white",
@@ -66,12 +66,11 @@ class BookRenderer {
           : "🤍";
       });
     }
-
-    wishlistDiv.appendChild(wishlistButton);
-
+    
     // Append elements to bookCard
     bookCard.appendChild(bookDetailsDiv);
     bookCard.appendChild(wishlistDiv);
+    wishlistDiv.appendChild(wishlistButton);
 
     return bookCard;
   }
@@ -95,10 +94,20 @@ class BookRenderer {
       "items-center"
     );
 
-    bookCard.innerHTML = `
+    // Create a clickable upper portion
+    const bookDetailsDiv = document.createElement("div");
+    bookDetailsDiv.classList.add("w-full", "mb-4", "cursor-pointer");
+
+    // Attach click event to navigate to book-details page
+    bookDetailsDiv.addEventListener("click", () => {
+      localStorage.setItem("selectedBook", book.id);
+      window.location.href = `book-details.html?id=${book.id}`;
+    });
+
+    bookDetailsDiv.innerHTML = `
       <img src="${book.formats["image/jpeg"]}" alt="${
       book.title
-    }" class="h-48 w-40 object-cover mx-auto rounded">
+    }" class="h-48 w-40 mx-auto rounded">
       <h3 class="mt-2 font-bold">${book.title}</h3>
       <p class="text-sm text-gray-600">Author: ${
         book.authors.length ? book.authors[0].name : "Unknown"
@@ -108,12 +117,17 @@ class BookRenderer {
     // Add remove button
     const removeButton = document.createElement("button");
     removeButton.innerHTML = "❌ Remove";
-    removeButton.classList.add("text-red-500", "text-lg", "mt-2");
+    removeButton.classList.add("text-red-500", "text-sm", "mt-auto");
 
     if (onRemove) {
-      removeButton.addEventListener("click", () => onRemove(book.id));
+      removeButton.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent triggering the card click
+        onRemove(book.id);
+      });
     }
 
+    // Append
+    bookCard.appendChild(bookDetailsDiv);
     bookCard.appendChild(removeButton);
 
     return bookCard;
@@ -126,7 +140,7 @@ class BookRenderer {
    * @param {Function} onCardClick - Callback for card click
    * @param {Function} onWishlistToggle - Callback for wishlist toggle
    */
-  displayBooks(books, container, onCardClick, onWishlistToggle) {
+  displayBooks(books, container, onWishlistToggle) {
     if (!container) return;
 
     container.innerHTML = "";
@@ -138,7 +152,7 @@ class BookRenderer {
     }
 
     books.forEach((book) => {
-      const bookCard = this.createBookCard(book, onCardClick, onWishlistToggle);
+      const bookCard = this.createBookCard(book, onWishlistToggle);
       container.appendChild(bookCard);
     });
   }
@@ -167,5 +181,4 @@ class BookRenderer {
   }
 }
 
-// Create a singleton instance
 const bookRenderer = new BookRenderer();

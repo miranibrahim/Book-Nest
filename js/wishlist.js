@@ -72,5 +72,4 @@ class WishlistManager {
   }
 }
 
-// Create a singleton instance
 const wishlistManager = new WishlistManager();

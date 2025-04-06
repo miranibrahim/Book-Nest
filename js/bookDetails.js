@@ -69,7 +69,6 @@ class BookDetailsManager {
   }
 }
 
-// Initialize on page load
 document.addEventListener("DOMContentLoaded", function () {
   const bookDetailsManager = new BookDetailsManager();
   bookDetailsManager.init();

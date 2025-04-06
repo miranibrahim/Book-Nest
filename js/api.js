@@ -45,5 +45,4 @@ class BookAPI {
   }
 }
 
-// Create a singleton instance
 const bookAPI = new BookAPI();

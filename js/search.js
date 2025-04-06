@@ -127,5 +127,4 @@ class SearchManager {
   }
 }
 
-// Create a singleton instance
 const searchManager = new SearchManager();
