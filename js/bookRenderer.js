@@ -1,11 +1,5 @@
 class BookRenderer {
-  /**
-   * Create a book card element
-   * @param {Object} book - The book data
-   * @param {Function} onCardClick - Callback for card click
-   * @param {Function} onWishlistToggle - Callback for wishlist toggle
-   * @returns {HTMLElement} The created book card element
-   */
+  // Create a book card element
   createBookCard(book, onWishlistToggle) {
     const bookCard = document.createElement("div");
     bookCard.classList.add(
@@ -19,11 +13,11 @@ class BookRenderer {
       "items-center"
     );
 
-    // Create book details div (clickable)
+    // Create clickable div to navigate book details
     const bookDetailsDiv = document.createElement("div");
     bookDetailsDiv.classList.add("w-full", "cursor-pointer");
 
-    // Navigate to book-details.html?id=<book_id>
+    // Navigate to book-details
     bookDetailsDiv.addEventListener("click", () => {
       localStorage.setItem("selectedBook", book.id);
       window.location.href = `book-details.html?id=${book.id}`;
@@ -57,7 +51,7 @@ class BookRenderer {
       ? "❤️"
       : "🤍";
 
-    // Wishlist button event listener (does NOT navigate)
+    // Wishlist button event listener
     if (onWishlistToggle) {
       wishlistButton.addEventListener("click", () => {
         onWishlistToggle(book.id);
@@ -66,7 +60,7 @@ class BookRenderer {
           : "🤍";
       });
     }
-    
+
     // Append elements to bookCard
     bookCard.appendChild(bookDetailsDiv);
     bookCard.appendChild(wishlistDiv);
@@ -75,12 +69,7 @@ class BookRenderer {
     return bookCard;
   }
 
-  /**
-   * Create a wishlist card element
-   * @param {Object} book - The book data
-   * @param {Function} onRemove - Callback for remove button click
-   * @returns {HTMLElement} The created wishlist card element
-   */
+  // Create a wishlist card element
   createWishlistCard(book, onRemove) {
     const bookCard = document.createElement("div");
     bookCard.classList.add(
@@ -94,11 +83,11 @@ class BookRenderer {
       "items-center"
     );
 
-    // Create a clickable upper portion
+    // Create clickable div to navigate book details
     const bookDetailsDiv = document.createElement("div");
     bookDetailsDiv.classList.add("w-full", "mb-4", "cursor-pointer");
 
-    // Attach click event to navigate to book-details page
+    // Navigate to book-details
     bookDetailsDiv.addEventListener("click", () => {
       localStorage.setItem("selectedBook", book.id);
       window.location.href = `book-details.html?id=${book.id}`;
@@ -120,10 +109,7 @@ class BookRenderer {
     removeButton.classList.add("text-red-500", "text-sm", "mt-auto");
 
     if (onRemove) {
-      removeButton.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent triggering the card click
-        onRemove(book.id);
-      });
+      removeButton.addEventListener("click", () => onRemove(book.id));
     }
 
     // Append
@@ -133,49 +119,23 @@ class BookRenderer {
     return bookCard;
   }
 
-  /**
-   * Display a list of books in the specified container
-   * @param {Array} books - Array of book objects
-   * @param {HTMLElement} container - Container element
-   * @param {Function} onCardClick - Callback for card click
-   * @param {Function} onWishlistToggle - Callback for wishlist toggle
-   */
-  displayBooks(books, container, onWishlistToggle) {
+  // Display a list of books in the specified container
+  displayBooks(books, container, action) {
     if (!container) return;
 
     container.innerHTML = "";
-
     if (books.length === 0) {
       container.innerHTML =
-        "<p class='text-center text-gray-500'>No books found.</p>";
+        "<p class='text-center text-gray-500'>List is empty</p>";
       return;
     }
 
     books.forEach((book) => {
-      const bookCard = this.createBookCard(book, onWishlistToggle);
-      container.appendChild(bookCard);
-    });
-  }
+      const bookCard =
+        container.id === "wishlist-books"
+          ? this.createWishlistCard(book, action)
+          : this.createBookCard(book, action);
 
-  /**
-   * Display wishlist books
-   * @param {Array} books - Array of book objects
-   * @param {HTMLElement} container - Container element
-   * @param {Function} onRemove - Callback for remove button click
-   */
-  displayWishlistBooks(books, container, onRemove) {
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (books.length === 0) {
-      container.innerHTML =
-        "<p class='text-center text-gray-500'>Your wishlist is empty.</p>";
-      return;
-    }
-
-    books.forEach((book) => {
-      const bookCard = this.createWishlistCard(book, onRemove);
       container.appendChild(bookCard);
     });
   }

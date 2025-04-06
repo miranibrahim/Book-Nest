@@ -150,7 +150,7 @@ class BookApp {
     const wishlistSection = document.getElementById("wishlist-books");
     const wishlist = wishlistManager.getWishlist();
 
-    bookRenderer.displayWishlistBooks(wishlist, wishlistSection, (bookId) => {
+    bookRenderer.displayBooks(wishlist, wishlistSection, (bookId) => {
       wishlistManager.removeFromWishlist(bookId);
       this.displayWishlistBooks();
     });
