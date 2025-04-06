@@ -5,22 +5,17 @@ class BookApp {
     this.isWishlistPage = window.location.pathname.includes("wishlist.html");
   }
 
-  /**
-   * Initialize the application
-   */
+  // Initialize the application
   async init() {
-    // Check if we're on the wishlist page
     if (this.isWishlistPage) {
       this.initWishlistPage();
       return;
     }
 
-    // Initialize main page (book listing)
     try {
       this.books = await bookAPI.fetchAllBooks();
       this.filteredBooks = [...this.books];
 
-      // Set up event listeners
       this.setupEventListeners();
 
       // Populate genre filter
@@ -43,9 +38,7 @@ class BookApp {
     }
   }
 
-  /**
-   * Load saved search preferences from localStorage
-   */
+  // Load saved search preferences from localStorage
   loadSavedSearchPreferences() {
     const searchBar = document.getElementById("search-bar");
     const genreFilter = document.getElementById("genre-filter");
@@ -75,9 +68,7 @@ class BookApp {
     }
   }
 
-  /**
-   * Set up event listeners
-   */
+  // Set up event listeners
   setupEventListeners() {
     const searchBar = document.getElementById("search-bar");
     if (searchBar) {
@@ -88,17 +79,9 @@ class BookApp {
     if (genreFilter) {
       genreFilter.addEventListener("change", () => this.handleSearch());
     }
-
-    // Optional: Add a reset filters button
-    const resetFiltersBtn = document.getElementById("reset-filters");
-    if (resetFiltersBtn) {
-      resetFiltersBtn.addEventListener("click", () => this.resetFilters());
-    }
   }
 
-  /**
-   * Handle search and filter
-   */
+  // Handle search and filter
   handleSearch() {
     const searchBar = document.getElementById("search-bar");
     const genreFilter = document.getElementById("genre-filter");
@@ -106,7 +89,7 @@ class BookApp {
     const searchTerm = searchBar ? searchBar.value : "";
     const genre = genreFilter ? genreFilter.value : "";
 
-    // Save preferences to localStorage
+    // Save to localStorage
     localStorage.setItem("bookstore_search_term", searchTerm);
     localStorage.setItem("bookstore_selected_genre", genre);
 
@@ -119,35 +102,7 @@ class BookApp {
     this.displayFilteredBooks();
   }
 
-  /**
-   * Reset all filters
-   */
-  resetFilters() {
-    // Clear localStorage
-    localStorage.removeItem("bookstore_search_term");
-    localStorage.removeItem("bookstore_selected_genre");
-
-    // Reset UI
-    const searchBar = document.getElementById("search-bar");
-    if (searchBar) {
-      searchBar.value = "";
-    }
-
-    const genreFilter = document.getElementById("genre-filter");
-    if (genreFilter) {
-      genreFilter.selectedIndex = 0;
-    }
-
-    // Reset filtered books and display
-    this.filteredBooks = [...this.books];
-    paginationManager.resetToFirstPage();
-    this.displayFilteredBooks();
-  }
-
-  /**
-   * Handle wishlist toggle
-   * @param {number} bookId - Book ID
-   */
+  // Handle wishlist toggle
   handleWishlistToggle(bookId) {
     const book = this.books.find((b) => b.id === bookId);
     if (book) {
@@ -161,17 +116,13 @@ class BookApp {
     }
   }
 
-  /**
-   * Initialize wishlist page
-   */
+  // Initialize wishlist page
   initWishlistPage() {
     const wishlistSection = document.getElementById("wishlist-books");
     this.displayWishlistBooks(wishlistSection);
   }
 
-  /**
-   * Display filtered books with pagination
-   */
+  // Display filtered books with pagination
   displayFilteredBooks() {
     const booksListSection = document.getElementById("books-list");
     const paginationDiv = document.getElementById("pagination");
@@ -185,7 +136,6 @@ class BookApp {
     bookRenderer.displayBooks(
       booksToDisplay,
       booksListSection,
-      // (bookId) => this.handleBookClick(bookId),
       (bookId) => this.handleWishlistToggle(bookId)
     );
 
@@ -197,22 +147,19 @@ class BookApp {
     );
   }
 
-  /**
-   * Display wishlist books
-   */
+  // Display wishlist books
   displayWishlistBooks() {
     const wishlistSection = document.getElementById("wishlist-books");
     const wishlist = wishlistManager.getWishlist();
 
     bookRenderer.displayWishlistBooks(
-      wishlist, 
-      wishlistSection, 
-      // (bookId) => this.handleBookClick(bookId),
+      wishlist,
+      wishlistSection,
       (bookId) => {
         wishlistManager.removeFromWishlist(bookId);
         this.displayWishlistBooks();
       }
-  );
+    );
   }
 }
 

@@ -3,10 +3,7 @@ class BookAPI {
     this.apiEndpoint = "https://gutendex.com/books";
   }
 
-  /**
-   * Fetch all books from the API
-   * @returns {Promise} Promise with books data
-   */
+  // Fetch all books from the API
   async fetchAllBooks() {
     try {
       const response = await fetch(this.apiEndpoint);
@@ -14,7 +11,6 @@ class BookAPI {
         throw new Error("Failed to fetch books");
       }
       const data = await response.json();
-      
       return data.results;
     } catch (error) {
       console.error("Error fetching books:", error);
@@ -22,11 +18,7 @@ class BookAPI {
     }
   }
 
-  /**
-   * Fetch a specific book by ID
-   * @param {number} id - The book ID
-   * @returns {Promise} Promise with book data
-   */
+  // Fetch a specific book by ID
   async fetchBookById(id) {
     try {
       const response = await fetch(`${this.apiEndpoint}/?ids=${id}`);

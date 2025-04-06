@@ -3,26 +3,17 @@ class WishlistManager {
     this.storageKey = "wishlist";
   }
 
-  /**
-   * Get wishlist from local storage
-   * @returns {Array} Array of wishlist books
-   */
+  // Get wishlist from local storage
   getWishlist() {
     return JSON.parse(localStorage.getItem(this.storageKey)) || [];
   }
 
-  /**
-   * Save wishlist to local storage
-   * @param {Array} wishlist - Wishlist array
-   */
+  // Save wishlist to local storage
   saveWishlist(wishlist) {
     localStorage.setItem(this.storageKey, JSON.stringify(wishlist));
   }
 
-  /**
-   * Add book to wishlist
-   * @param {Object} book - Book to add
-   */
+  // Add book to wishlist
   addToWishlist(book) {
     const wishlist = this.getWishlist();
     if (!wishlist.some((b) => b.id === book.id)) {
@@ -31,21 +22,14 @@ class WishlistManager {
     }
   }
 
-  /**
-   * Remove book from wishlist
-   * @param {number} bookId - ID of book to remove
-   */
+  // Remove book from wishlist
   removeFromWishlist(bookId) {
     let wishlist = this.getWishlist();
     wishlist = wishlist.filter((b) => b.id !== bookId);
     this.saveWishlist(wishlist);
   }
 
-  /**
-   * Toggle book in wishlist
-   * @param {Object} book - Book to toggle
-   * @returns {boolean} True if book is in wishlist after toggle
-   */
+  // Toggle book in wishlist
   toggleWishlist(book) {
     const wishlist = this.getWishlist();
     const index = wishlist.findIndex((b) => b.id === book.id);
@@ -61,11 +45,7 @@ class WishlistManager {
     }
   }
 
-  /**
-   * Check if book is in wishlist
-   * @param {number} bookId - Book ID to check
-   * @returns {boolean} True if book is in wishlist
-   */
+  // Check if book is in wishlist
   isInWishlist(bookId) {
     const wishlist = this.getWishlist();
     return wishlist.some((b) => b.id === bookId);
