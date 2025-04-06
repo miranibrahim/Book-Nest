@@ -2,8 +2,8 @@ class SearchManager {
   constructor() {
     // Define keys for localStorage
     this.STORAGE_KEYS = {
-      SEARCH_TERM: 'bookstore_search_term',
-      SELECTED_GENRE: 'bookstore_selected_genre'
+      SEARCH_TERM: "bookstore_search_term",
+      SELECTED_GENRE: "bookstore_selected_genre",
     };
   }
 
@@ -49,23 +49,27 @@ class SearchManager {
     if (!selectElement) return;
 
     selectElement.innerHTML = '<option value="">Filter by Genre</option>';
+
+    const isSmallOrMedium = window.innerWidth < 1024; // Tailwind lg breakpoint = 1024px
+
     genres.forEach((genre) => {
       const option = document.createElement("option");
       option.value = genre;
-      option.textContent = genre;
+      option.title = genre; // Show full name on hover
+
+      if (isSmallOrMedium && genre.length > 40) {
+        option.textContent = genre.slice(0, 30) + "…";
+      } else {
+        option.textContent = genre;
+      }
+
       selectElement.appendChild(option);
     });
 
-    // Set selected option from localStorage
+    // Restore saved selection
     const savedGenre = this.getSavedGenre();
     if (savedGenre) {
-      const optionToSelect = Array.from(selectElement.options).find(
-        option => option.value === savedGenre
-      );
-      
-      if (optionToSelect) {
-        optionToSelect.selected = true;
-      }
+      selectElement.value = savedGenre;
     }
   }
 
@@ -82,7 +86,7 @@ class SearchManager {
    * @returns {string} The saved search term or empty string
    */
   getSavedSearchTerm() {
-    return localStorage.getItem(this.STORAGE_KEYS.SEARCH_TERM) || '';
+    return localStorage.getItem(this.STORAGE_KEYS.SEARCH_TERM) || "";
   }
 
   /**
@@ -110,7 +114,7 @@ class SearchManager {
     if (searchInput) {
       searchInput.value = this.getSavedSearchTerm();
     }
-    
+
     // Genre select is handled in populateGenreFilter
   }
 
