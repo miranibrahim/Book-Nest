@@ -1,7 +1,5 @@
 class BookDetailsManager {
-  /**
-   * Initialize book details page
-   */
+  // Initialize book details page
   async init() {
     const localId = localStorage.getItem("selectedBook");
     const urlParams = new URLSearchParams(window.location.search);
@@ -23,10 +21,7 @@ class BookDetailsManager {
     }
   }
 
-  /**
-   * Display book details on the page
-   * @param {Object} book - Book data
-   */
+  // Display book details on the page
   displayBookDetails(book) {
     document.getElementById("book-cover").src =
       book.formats["image/jpeg"] || "placeholder.jpg";
@@ -45,17 +40,13 @@ class BookDetailsManager {
         : "No summary available.";
     document.getElementById("book-downloads").textContent = book.download_count;
 
-    // Populate book formats (Download links)
     this.displayBookFormats(book.formats);
   }
 
-  /**
-   * Display book formats as download links
-   * @param {Object} formats - Book formats
-   */
+  // Display book formats as download links
   displayBookFormats(formats) {
     const formatsList = document.getElementById("book-formats");
-    formatsList.innerHTML = ""; // Clear previous content
+    formatsList.innerHTML = ""; 
 
     Object.entries(formats).forEach(([format, link]) => {
       if (format !== "image/jpeg") {

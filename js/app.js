@@ -133,10 +133,8 @@ class BookApp {
     );
 
     // Display books
-    bookRenderer.displayBooks(
-      booksToDisplay,
-      booksListSection,
-      (bookId) => this.handleWishlistToggle(bookId)
+    bookRenderer.displayBooks(booksToDisplay, booksListSection, (bookId) =>
+      this.handleWishlistToggle(bookId)
     );
 
     // Set up pagination
@@ -152,14 +150,10 @@ class BookApp {
     const wishlistSection = document.getElementById("wishlist-books");
     const wishlist = wishlistManager.getWishlist();
 
-    bookRenderer.displayWishlistBooks(
-      wishlist,
-      wishlistSection,
-      (bookId) => {
-        wishlistManager.removeFromWishlist(bookId);
-        this.displayWishlistBooks();
-      }
-    );
+    bookRenderer.displayWishlistBooks(wishlist, wishlistSection, (bookId) => {
+      wishlistManager.removeFromWishlist(bookId);
+      this.displayWishlistBooks();
+    });
   }
 }
 
