@@ -4,12 +4,7 @@ class PaginationManager {
     this.booksPerPage = 10;
   }
 
-  /**
-   * Set up pagination controls
-   * @param {number} totalItems - Total number of items
-   * @param {HTMLElement} container - Container for pagination buttons
-   * @param {Function} onPageChange - Callback when page changes
-   */
+  // Set up pagination controls
   setupPagination(totalItems, container, onPageChange) {
     if (!container) return;
 
@@ -39,27 +34,18 @@ class PaginationManager {
     }
   }
 
-  /**
-   * Get current page items
-   * @param {Array} items - All items
-   * @returns {Array} - Items for current page
-   */
+  // Get current page items
   getCurrentPageItems(items) {
     const startIndex = (this.currentPage - 1) * this.booksPerPage;
     return items.slice(startIndex, startIndex + this.booksPerPage);
   }
 
-  /**
-   * Reset to first page
-   */
+  // Reset to first page
   resetToFirstPage() {
     this.currentPage = 1;
   }
 
-  /**
-   * Get current page
-   * @returns {number} Current page number
-   */
+  // Get current page
   getCurrentPage() {
     return this.currentPage;
   }
